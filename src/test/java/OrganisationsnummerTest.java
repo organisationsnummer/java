@@ -1,4 +1,5 @@
 import dev.organisationsnummer.Organisationsnummer;
+import dev.organisationsnummer.OrganisationsnummerException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -28,7 +29,7 @@ public class OrganisationsnummerTest {
             "901211-9948,9012119948",
             "9012119948,9012119948",
     })
-    public void testFormatWithoutSeparator(String number, String expected) {
+    public void testFormatWithoutSeparator(String number, String expected) throws OrganisationsnummerException {
         assertEquals(expected, Organisationsnummer.parse(number).format(false));
 
     }
@@ -41,7 +42,7 @@ public class OrganisationsnummerTest {
             "9012119948,901211-9948",
             "901211-9948,901211-9948",
     })
-    public void testFormatWithSeparator(String number, String expected) {
+    public void testFormatWithSeparator(String number, String expected) throws OrganisationsnummerException {
         assertEquals(expected, Organisationsnummer.parse(number).format(true));
     }
 
@@ -52,7 +53,7 @@ public class OrganisationsnummerTest {
             "5561034249,Aktiebolag",
             "8510033999,Enskild firma",
     })
-    public void testType(String number, String expected) {
+    public void testType(String number, String expected) throws OrganisationsnummerException {
         assertEquals(expected, Organisationsnummer.parse(number).type());
     }
 
@@ -64,7 +65,7 @@ public class OrganisationsnummerTest {
             "9012119948,SE901211994801",
             "19901211-9948,SE901211994801",
     })
-    public void testVat(String number, String expected) {
+    public void testVat(String number, String expected) throws OrganisationsnummerException {
         assertEquals(expected, Organisationsnummer.parse(number).vatNumber());
     }
 
@@ -73,7 +74,7 @@ public class OrganisationsnummerTest {
         "121212121212",
         "121212-1212",
     })
-    public void testWithPersonnummer(String ssn) {
+    public void testWithPersonnummer(String ssn) throws OrganisationsnummerException {
         Organisationsnummer nr = Organisationsnummer.parse(ssn);
         assertTrue(nr.isPersonnummer());
         assertEquals("Enskild firma", nr.type());
