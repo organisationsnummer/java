@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       matrix:
-        java: [ 8, 11, 16, 17 ]
+        java: [ 8, 11, 17, 18 ]
     name: Java ${{ matrix.java }} test.
     steps:
       - uses: actions/checkout@v2
