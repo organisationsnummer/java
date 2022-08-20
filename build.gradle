@@ -39,3 +39,47 @@ test {
         exceptionFormat "full"
     }
 }
+
+// Release
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/organisationsnummer/java")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+            }
+        }
+    }
+    publications {
+        mavenJava (MavenPublication) {
+            version = System.getenv("RELEASE_VERSION")
+            groupId = 'dev.organisationsnummer'
+            from components.java
+            pom {
+                name = 'Organisationsnummer'
+                description = 'Organisationsnummer is a small open-source project created to validate, format and getting the organization type from swedish organization numbers.'
+                url = 'https://organisationsnummer.dev'
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'jite'
+                        name = 'Johannes Tegnér'
+                        email = 'johannes@jitesoft.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git@github.com:organisationsnummer/java.git'
+                    url = 'https://github.com/organisationsnummer/java'
+                }
+            }
+        }
+    }
+}
