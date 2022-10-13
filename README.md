@@ -15,7 +15,7 @@ Organisationsnummer.valid("202100-5489");
 //=> true
 ```
 
-See [https://github.com/organisationsnummer/java/blob/master/src/test/java/OrganisationsnummerTest.java](OrganisationsnummerTest.java) for more examples.
+See [OrganisationsnummerTest.java](https://github.com/organisationsnummer/java/blob/master/src/test/java/OrganisationsnummerTest.java) for more examples.
 
 ## License
 
