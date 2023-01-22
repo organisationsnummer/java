@@ -27,7 +27,7 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
     };
 
     static {
-        regexPattern = Pattern.compile("^(\\d{2}){0,1}(\\d{2})(\\d{2})(\\d{2})([-+]?)?((?!000)\\d{3})(\\d)$");
+        regexPattern = Pattern.compile("^(\\d{2}){0,1}(\\d{2})(\\d{2})(\\d{2})([-+]?)?(\\d{4})$");
     }
 
     private String number;
