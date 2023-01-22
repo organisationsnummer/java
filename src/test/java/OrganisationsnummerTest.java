@@ -15,7 +15,8 @@ public class OrganisationsnummerTest {
             "5561034249,true",
             "556016-0681,false",
             "556103-4250,false",
-            "5561034250,false"
+            "5561034250,false",
+            "5592440001,true",
     })
     public void testValidateOrgNumbers(String number, boolean valid) {
         assertEquals(valid, Organisationsnummer.valid(number));
