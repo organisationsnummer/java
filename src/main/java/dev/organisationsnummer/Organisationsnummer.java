@@ -152,6 +152,10 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
     }
 
     private void innerParse(String input) throws OrganisationsnummerException {
+        if (input.length() > 13 || input.length() < 10) {
+            throw new OrganisationsnummerException("Input value too " + (input.length() > 13 ? "long" : "short"));
+        }
+
         try {
             Matcher matches = regexPattern.matcher(input);
             if (!matches.find()) {
