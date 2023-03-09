@@ -158,8 +158,11 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
                 throw new OrganisationsnummerException();
             }
 
-            if (matches.group(1) != null && Integer.parseInt(matches.group(1)) != 16) {
-                throw new OrganisationsnummerException();
+            if (matches.group(1) != null) {
+                if (Integer.parseInt(matches.group(1)) != 16) {
+                    throw new OrganisationsnummerException();
+                }
+                input = input.substring(2);
             }
 
             input = input.replace("-", "");

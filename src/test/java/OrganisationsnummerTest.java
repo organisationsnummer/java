@@ -1,73 +1,66 @@
 import dev.organisationsnummer.Organisationsnummer;
 import dev.organisationsnummer.OrganisationsnummerException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class OrganisationsnummerTest {
 
-    @ParameterizedTest
-    @CsvSource({
-            "556016-0680,true",
-            "556103-4249,true",
-            "5561034249,true",
-            "556016-0681,false",
-            "556103-4250,false",
-            "5561034250,false",
-            "5592440001,true",
-    })
-    public void testValidateOrgNumbers(String number, boolean valid) {
-        assertEquals(valid, Organisationsnummer.valid(number));
+    @BeforeAll
+    public static void setup() throws IOException {
+        DataProvider.initialize();
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "556016-0680,5560160680",
-            "556103-4249,5561034249",
-            "5561034249,5561034249",
-            "901211-9948,9012119948",
-            "9012119948,9012119948",
-    })
-    public void testFormatWithoutSeparator(String number, String expected) throws OrganisationsnummerException {
-        assertEquals(expected, Organisationsnummer.parse(number).format(false));
+    @MethodSource("DataProvider#getInvalid")
+    public void testThrowOnInvalid(OrgNrData input) {
+        assertThrows(OrganisationsnummerException.class, () -> {
+            Organisationsnummer.parse(input.shortFormat);
+        });
 
+        assertThrows(OrganisationsnummerException.class, () -> {
+            Organisationsnummer.parse(input.longFormat);
+        });
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "556016-0680,556016-0680",
-            "556103-4249,556103-4249",
-            "5561034249,556103-4249",
-            "9012119948,901211-9948",
-            "901211-9948,901211-9948",
-    })
-    public void testFormatWithSeparator(String number, String expected) throws OrganisationsnummerException {
-        assertEquals(expected, Organisationsnummer.parse(number).format(true));
+    @MethodSource("DataProvider#getAll")
+    public void testValidateOrgNumbers(OrgNrData input) {
+        assertEquals(input.valid, Organisationsnummer.valid(input.longFormat));
+        assertEquals(input.valid, Organisationsnummer.valid(input.shortFormat));
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "556016-0680,Aktiebolag",
-            "556103-4249,Aktiebolag",
-            "5561034249,Aktiebolag",
-            "8510033999,Enskild firma",
-    })
-    public void testType(String number, String expected) throws OrganisationsnummerException {
-        assertEquals(expected, Organisationsnummer.parse(number).type());
+    @MethodSource("DataProvider#getValid")
+    public void testFormatWithoutSeparator(OrgNrData input) throws OrganisationsnummerException {
+        assertEquals(input.shortFormat, Organisationsnummer.parse(input.shortFormat).format(false));
+        assertEquals(input.shortFormat, Organisationsnummer.parse(input.longFormat).format(false));
     }
 
     @ParameterizedTest
-    @CsvSource({
-            "556016-0680,SE556016068001",
-            "556103-4249,SE556103424901",
-            "5561034249,SE556103424901",
-            "9012119948,SE901211994801",
-            "19901211-9948,SE901211994801",
-    })
-    public void testVat(String number, String expected) throws OrganisationsnummerException {
-        assertEquals(expected, Organisationsnummer.parse(number).vatNumber());
+    @MethodSource("DataProvider#getValid")
+    public void testFormatWithSeparator(OrgNrData input) throws OrganisationsnummerException {
+        assertEquals(input.longFormat, Organisationsnummer.parse(input.shortFormat).format(true));
+        assertEquals(input.longFormat, Organisationsnummer.parse(input.longFormat).format(true));
+    }
+
+    @ParameterizedTest
+    @MethodSource("DataProvider#getValid")
+    public void testType(OrgNrData input) throws OrganisationsnummerException {
+        assertEquals(input.type, Organisationsnummer.parse(input.shortFormat).type());
+        assertEquals(input.type, Organisationsnummer.parse(input.longFormat).type());
+    }
+
+    @ParameterizedTest
+    @MethodSource("DataProvider#getValid")
+    public void testVat(OrgNrData input) throws OrganisationsnummerException {
+        assertEquals(input.vatNumber, Organisationsnummer.parse(input.shortFormat).vatNumber());
+        assertEquals(input.vatNumber, Organisationsnummer.parse(input.longFormat).vatNumber());
     }
 
     @ParameterizedTest
