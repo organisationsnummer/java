@@ -1,0 +1,4 @@
+name: "Java"
+maintainer: "@johannestegner"
+spec: 1.1
+workflow: "test.yml"
