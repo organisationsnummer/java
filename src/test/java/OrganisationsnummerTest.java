@@ -45,7 +45,7 @@ public class OrganisationsnummerTest {
     @ParameterizedTest
     @MethodSource("DataProvider#getValid")
     public void testFormatWithSeparator(OrgNrData input) throws OrganisationsnummerException {
-        assertEquals(input.longFormat, Organisationsnummer.parse(input.shortFormat).format(true));
+        assertEquals(input.longFormat.replace('+', '-'), Organisationsnummer.parse(input.shortFormat).format(true));
         assertEquals(input.longFormat, Organisationsnummer.parse(input.longFormat).format(true));
     }
 

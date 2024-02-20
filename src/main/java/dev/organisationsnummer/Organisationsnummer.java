@@ -83,6 +83,10 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
      * @return Formatted string.
      */
     public String format(boolean separator) {
+        if (separator && this.isPersonnummer) {
+            return this.innerPersonnummer.format(false);
+        }
+
         String nr = this.getShortString();
 
         return separator ?
@@ -156,6 +160,7 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
             throw new OrganisationsnummerException("Input value too " + (input.length() > 13 ? "long" : "short"));
         }
 
+        String originalInput = input;
         try {
             Matcher matches = regexPattern.matcher(input);
             if (!matches.find()) {
@@ -181,7 +186,7 @@ public class Organisationsnummer implements Comparable<Organisationsnummer> {
 
         } catch (OrganisationsnummerException e) {
             try {
-                this.innerPersonnummer = Personnummer.parse(input);
+                this.innerPersonnummer = Personnummer.parse(originalInput);
                 this.isPersonnummer = true;
             } catch (PersonnummerException ex) {
                 throw new OrganisationsnummerException();
