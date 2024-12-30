@@ -3,6 +3,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'signing'
+    id 'tech.yanand.maven-central-publish' version '1.3.0'
 }
 
 group 'dev.organisationsnummer'
@@ -103,4 +104,11 @@ signing {
 
 tasks.withType(Sign) {
     onlyIf { version != "NONE" }
+}
+
+mavenCentral {
+    // Docs: https://github.com/yananhub/flying-gradle-plugin
+    authToken = findProperty("mavenToken")
+    publishingType = 'AUTOMATIC'
+    maxWait = 60
 }
