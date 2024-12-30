@@ -2,6 +2,7 @@ plugins {
     id 'maven-publish'
     id 'java'
     id 'java-library'
+    id 'signing'
 }
 
 group 'dev.organisationsnummer'
@@ -90,4 +91,16 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    def signingKeyId = "C5D41C23" // Short format key-id of signing key.
+    def signingKey = findProperty("signingKey") ?: "key"
+    def signingPassword = findProperty("signingPassword") ?: "pass"
+    useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+    sign publishing.publications.mavenJava
+}
+
+tasks.withType(Sign) {
+    onlyIf { version != "NONE" }
 }
