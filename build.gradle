@@ -14,8 +14,8 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.2', 'org.junit.jupiter:junit-jupiter-params:5.13.2', 'org.json:json:20250517'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.13.2', 'org.junit.platform:junit-platform-launcher'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.13.3', 'org.junit.jupiter:junit-jupiter-params:5.13.3', 'org.json:json:20250517'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.13.3', 'org.junit.platform:junit-platform-launcher'
 
     implementation 'dev.personnummer:personnummer:3.5.0'
 }
