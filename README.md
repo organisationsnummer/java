@@ -17,6 +17,10 @@ Organisationsnummer.valid("202100-5489");
 
 See [OrganisationsnummerTest.java](https://github.com/organisationsnummer/java/blob/main/src/test/java/OrganisationsnummerTest.java) for more examples.
 
+## In memoriam
+
+Fredrik "Frozzare" Forsmo (1991-2026) was the initiator, co-founder and a core contributor of the organisationsnummer project. This library carries his work. He is missed.
+
 ## License
 
 MIT
