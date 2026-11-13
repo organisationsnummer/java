@@ -15,7 +15,7 @@ public class DataProvider {
     private static final List<OrgNrData> data = new ArrayList<>();
 
     public static void initialize() throws IOException {
-        InputStream in = new URL("https://raw.githubusercontent.com/organisationsnummer/meta/main/testdata/list.json").openStream();
+        InputStream in = new URL("https://raw.githubusercontent.com/organisationsnummer/meta/HEAD/testdata/list.json").openStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 
         String json = "", line = "";
