@@ -22,7 +22,7 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.java }}
-      - run: gradle test
+      - run: ./gradlew test
 
   # Single stable check for branch protection, so the ruleset does not need
   # to change when the matrix does.
