@@ -16,7 +16,7 @@ Maven:
 <dependency>
   <groupId>dev.organisationsnummer</groupId>
   <artifactId>organisationsnummer</artifactId>
-  <version>1.2.1</version>
+  <version>1.2.2</version>
 </dependency>
 ```
 
@@ -24,7 +24,7 @@ Gradle:
 
 ```groovy
 dependencies {
-    implementation "dev.organisationsnummer:organisationsnummer:1.2.1"
+    implementation "dev.organisationsnummer:organisationsnummer:1.2.2"
 }
 ```
 
